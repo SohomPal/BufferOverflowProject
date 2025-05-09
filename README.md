@@ -1,5 +1,5 @@
-Solutions for buflab 2025 for Network Centric Programming
-Solutions will only work for my netid
+Solutions for Buffer Overflow Lab 2025 for Network Centric Programming Course
+The payloads provided with this directory will only work for my netid
 
 Report:
 
