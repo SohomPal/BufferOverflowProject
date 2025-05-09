@@ -2,13 +2,13 @@ Solutions for buflab 2025 for Network Centric Programming
 Solutions will only work for my netid
 
 Notes
-**Level 0 **- Just run the payload with this command: 
+**Level 0** - Just run the payload with this command: 
 ```
 cat payload0 | ./hex2raw | ./bufbomb -u sp2160
 ```
 Design: The goal at this level was just to call the smoke() function. I designed a payload to be 48 bytes. The buffer is 40 bytes. After the buffer is EBP and then RET, I wanted to overwrite RET (which contains the return address back to test from getbuf). So my payload overwrites the buffer and EBP, and then overwrites RET with the memory address for the function smoke. That way when returning, the program will go to smoke() rather than returning to test. 
 
-_Insert Images Here_
+<img width="1440" alt="Level0" src="https://github.com/user-attachments/assets/95691ef3-0c1f-4ee8-bc16-f039f9e70a95" />
 
 **Level 1** - Just run the payload with this command: 
 ```
@@ -16,7 +16,7 @@ cat payload1 | ./hex2raw | ./bufbomb -u sp2160
 ```
 Design: This level I had to call fizz with an argument (my unique cookie) passed in. Similar to level 0, I wrote thru the buffer and overwrote EBP. I then put in the address for fizz() in the RET area. Above this are the local variables. I want to overwrite the second local variable with my cookie. This is the equivalent of calling fizz() with my cookie. Doing this allowed fizz to run believing it was called with my cookie. 
 
-_Insert Images Here_
+<img width="1439" alt="Level1" src="https://github.com/user-attachments/assets/13446885-8ae3-4456-8850-6ca848b06052" />
 
 **Level 2** - When submitting the payload normally, it might not work. In this case, compile the assembly source file and disassemble it as so:
 ```
@@ -39,7 +39,7 @@ Design: This level was different than the first two. I now had to run machine co
 ```
 After compiling and using objdump to get the hex values of it I was pasted it into my payload. In my payload I used a NOP sled to reach my machine code. However this exploit could also work with the machine code at the start of the buffer. The important thing is setting the return address to where the machine code begins. I set mine to the start of the buffer which was a NOP instruction. This does nothing but move onto the next instruction. This continues until it gets to my machine code which will run, setting the global value and returning back to the program. 
 
-_Insert Images Here_
+<img width="1440" alt="Level2" src="https://github.com/user-attachments/assets/37fcfcfa-5961-46aa-ac40-f78d01ee8dd8" />
 
 **Level 3** - When submitting the payload normally, it might not work. In this case, compile the assembly source file and disassemble it as so:
 ```
@@ -67,4 +67,4 @@ Essentially, I set the eax register with my cookie, which will be needed in vali
 
 Once again, after compiling and using objdump to get the hex values of my machine code, I pasted it into my payload. In my payload I once again used a NOP sled to reach my machine code. However this exploit could also work with the machine code at the start of the buffer. The important thing is setting the return address to where the machine code begins. The NOP sled just allows my machine code to be set anywhere within the buffer. I set my instruction pointer to the start of the buffer which was a NOP instruction, which eventually gets to my machine code which will run. Now I can set my cookie in the eax register and return back to the program stealthily.  
 
-_Insert Images Here_
+<img width="1440" alt="Level3" src="https://github.com/user-attachments/assets/10785689-0b49-4a7e-a4e3-67609ebda892" />
