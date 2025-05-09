@@ -1,7 +1,8 @@
 Solutions for buflab 2025 for Network Centric Programming
 Solutions will only work for my netid
 
-Notes
+Report:
+
 **Level 0** - Just run the payload with this command: 
 ```
 cat payload0 | ./hex2raw | ./bufbomb -u sp2160
